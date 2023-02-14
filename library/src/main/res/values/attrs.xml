@@ -10,4 +10,7 @@
         <!-- Defines whether to automatically resize text to fit to the view's bounds. -->
         <attr name="sizeToFit" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="AutofitLayout" parent="AutofitTextView"/>
+
 </resources>

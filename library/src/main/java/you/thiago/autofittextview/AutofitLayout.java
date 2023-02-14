@@ -1,8 +1,9 @@
-package me.grantland.widget;
+package you.thiago.autofittextview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,22 @@ import java.util.WeakHashMap;
  * A {@link ViewGroup} that re-sizes the text of it's children to be no larger than the width of the
  * view.
  *
- * @attr ref R.styleable.AutofitTextView_sizeToFit
- * @attr ref R.styleable.AutofitTextView_minTextSize
- * @attr ref R.styleable.AutofitTextView_precision
+ * @link ref R.styleable.AutofitTextView_sizeToFit
+ * @link ref R.styleable.AutofitTextView_minTextSize
+ * @link ref R.styleable.AutofitTextView_precision
  */
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 public class AutofitLayout extends FrameLayout {
 
+    private static final String TAG = "AutoFitTextHelperLayout";
+
     private boolean mEnabled;
+
     private float mMinTextSize;
+
     private float mPrecision;
-    private WeakHashMap<View, AutofitHelper> mHelpers = new WeakHashMap<View, AutofitHelper>();
+
+    private final WeakHashMap<View, AutofitHelper> mHelpers = new WeakHashMap<>();
 
     public AutofitLayout(Context context) {
         super(context);
@@ -47,16 +54,28 @@ public class AutofitLayout extends FrameLayout {
         float precision = -1;
 
         if (attrs != null) {
+            @SuppressWarnings("resource")
             TypedArray ta = context.obtainStyledAttributes(
-                    attrs,
-                    R.styleable.AutofitTextView,
-                    defStyle,
-                    0);
-            sizeToFit = ta.getBoolean(R.styleable.AutofitTextView_sizeToFit, sizeToFit);
-            minTextSize = ta.getDimensionPixelSize(R.styleable.AutofitTextView_minTextSize,
-                    minTextSize);
-            precision = ta.getFloat(R.styleable.AutofitTextView_precision, precision);
-            ta.recycle();
+                attrs,
+                R.styleable.AutofitLayout,
+                defStyle,
+                0
+            );
+
+            try {
+                sizeToFit = ta.getBoolean(R.styleable.AutofitTextView_sizeToFit, true);
+
+                minTextSize = ta.getDimensionPixelSize(
+                    R.styleable.AutofitTextView_minTextSize,
+                    minTextSize
+                );
+
+                precision = ta.getFloat(R.styleable.AutofitTextView_precision, precision);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            } finally {
+                ta.recycle();
+            }
         }
 
         mEnabled = sizeToFit;
@@ -67,15 +86,18 @@ public class AutofitLayout extends FrameLayout {
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
+
         TextView textView = (TextView) child;
-        AutofitHelper helper = AutofitHelper.create(textView)
-                .setEnabled(mEnabled);
+        AutofitHelper helper = AutofitHelper.create(textView).setEnabled(mEnabled);
+
         if (mPrecision > 0) {
             helper.setPrecision(mPrecision);
         }
+
         if (mMinTextSize > 0) {
             helper.setMinTextSize(TypedValue.COMPLEX_UNIT_PX, mMinTextSize);
         }
+
         mHelpers.put(textView, helper);
     }
 

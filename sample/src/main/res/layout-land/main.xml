@@ -1,67 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <EditText
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="16dp">
+
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:singleLine="true"
         android:hint="@string/input_hint"
-        android:text="@string/example"/>
+        android:singleLine="true"
+        android:text="@string/example" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/input">
+        android:layout_above="@+id/input"
+        android:layout_alignParentTop="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:baselineAligned="false"
-            >
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
-                <TextView
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_normal"
-                    />
-                <TextView
+                    android:text="@string/label_normal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/output"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/example"
-                    android:textSize="50sp"
                     android:gravity="center"
-                    />
+                    android:text="@string/example"
+                    android:textSize="50sp" />
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
-                <TextView
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_autofit"
-                    />
-                <me.grantland.widget.AutofitTextView
+                    android:text="@string/label_autofit" />
+
+                <you.thiago.autofittextview.AutofitTextView
                     android:id="@+id/output_autofit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/example"
-                    android:textSize="50sp"
                     android:gravity="center"
                     android:singleLine="true"
-                    autofit:minTextSize="8sp"
-                    />
+                    android:text="@string/example"
+                    android:textSize="50sp"
+                    autofit:minTextSize="8sp" />
+
             </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
+
 </RelativeLayout>

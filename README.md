@@ -1,20 +1,30 @@
 # AutoFitTextView
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.grantland/autofittextview/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/me.grantland/autofittextview)
-
-A TextView that automatically resizes text to fit perfectly within its bounds.
+[Updated SDK 14~33] A TextView that automatically resizes text to fit perfectly within its bounds.
 
 ![Example Image](/website/static/autofittextview.gif?raw=true)
 
+## Dependency
 
-## Usage
+Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
 
-```cson
-dependencies {
-    compile 'me.grantland:autofittextview:0.2.+'
+```gradle
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
 }
 ```
 
+Then, add the library to your module `build.gradle`
+
+```gradle
+dependencies {
+    implementation 'com.github.thiago-you:autofittextview:1.0.0'
+}
+```
+
+## Usage
 Enable any View extending TextView in code:
 
 ```java
@@ -24,19 +34,20 @@ AutofitHelper.create(textView);
 Enable any View extending TextView in XML:
 
 ```xml
-<me.grantland.widget.AutofitLayout
+<you.thiago.autofittextview.AutofitTextView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
+    
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
-        />
-</me.grantland.widget.AutofitLayout>
+        android:singleLine="true" />
+    
+</you.thiago.autofittextview.AutofitTextView>
 ```
 
 Use the built in Widget in code or XML:
+
 ```xml
 <RootElement
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
@@ -44,14 +55,13 @@ Use the built in Widget in code or XML:
 ```   
 
 ```xml
-<me.grantland.widget.AutofitTextView
+<you.thiago.autofittextview.AutofitTextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:singleLine="true"
     android:maxLines="2"
     android:textSize="40sp"
-    autofit:minTextSize="16sp"
-    />
+    autofit:minTextSize="16sp" />
 ```
 
 
